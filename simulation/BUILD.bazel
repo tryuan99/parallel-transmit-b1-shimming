@@ -1,0 +1,46 @@
+load("@pypi//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+package(default_visibility = ["//visibility:public"])
+
+py_library(
+    name = "b1_field_data",
+    srcs = ["b1_field_data.py"],
+    deps = [
+        ":field_file",
+        "//utils:constants",
+        requirement("matplotlib"),
+        requirement("numpy"),
+        requirement("pandas"),
+        requirement("SciencePlots"),
+    ],
+)
+
+py_binary(
+    name = "b1_inhomogeneity_analysis_main",
+    srcs = ["b1_inhomogeneity_analysis_main.py"],
+    data = [
+        "//simulation/data:birdcage_head_data",
+        "//simulation/data:birdcage_head_mask",
+    ],
+    deps = [
+        ":b1_field_data",
+        requirement("absl-py"),
+    ],
+)
+
+py_library(
+    name = "field_file",
+    srcs = ["field_file.py"],
+    deps = [requirement("pandas")],
+)
+
+py_binary(
+    name = "h_field_file_main",
+    srcs = ["h_field_file_main.py"],
+    data = ["//simulation/data:birdcage_head_data"],
+    deps = [
+        ":field_file",
+        requirement("absl-py"),
+    ],
+)
