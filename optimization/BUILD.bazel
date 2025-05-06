@@ -1,0 +1,44 @@
+load("@pypi//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+package(default_visibility = ["//visibility:public"])
+
+py_library(
+    name = "problem",
+    srcs = ["problem.py"],
+    deps = [
+        requirement("numpy"),
+        requirement("pymoo"),
+    ],
+)
+
+py_library(
+    name = "pso_single_objective_optimizer",
+    srcs = ["pso_single_objective_optimizer.py"],
+    deps = [
+        ":problem",
+        ":single_objective_optimizer",
+        requirement("numpy"),
+        requirement("pymoo"),
+    ],
+)
+
+py_binary(
+    name = "pso_single_objective_optimizer_example_main",
+    srcs = ["pso_single_objective_optimizer_example_main.py"],
+    deps = [
+        ":problem",
+        ":pso_single_objective_optimizer",
+        requirement("absl-py"),
+        requirement("numpy"),
+    ],
+)
+
+py_library(
+    name = "single_objective_optimizer",
+    srcs = ["single_objective_optimizer.py"],
+    deps = [
+        ":problem",
+        requirement("numpy"),
+    ],
+)
