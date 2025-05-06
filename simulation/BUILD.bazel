@@ -20,8 +20,8 @@ py_binary(
     name = "b1_inhomogeneity_analysis_main",
     srcs = ["b1_inhomogeneity_analysis_main.py"],
     data = [
-        "//simulation/data:birdcage_head_data",
-        "//simulation/data:birdcage_head_mask",
+        "//simulation/data:all_data",
+        "//simulation/data:all_masks",
     ],
     deps = [
         ":b1_field_data",

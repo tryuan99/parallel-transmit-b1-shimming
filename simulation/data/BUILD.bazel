@@ -12,3 +12,32 @@ filegroup(
     name = "birdcage_head_mask",
     srcs = ["birdcage_head_sar.fld"],
 )
+
+filegroup(
+    name = "birdcage_phantom_data",
+    srcs = glob(
+        ["birdcage_phantom_*.fld"],
+        exclude = ["birdcage_phantom_sar.fld"],
+    ),
+)
+
+filegroup(
+    name = "birdcage_phantom_mask",
+    srcs = ["birdcage_phantom_sar.fld"],
+)
+
+filegroup(
+    name = "all_data",
+    srcs = [
+        ":birdcage_head_data",
+        ":birdcage_phantom_data",
+    ],
+)
+
+filegroup(
+    name = "all_masks",
+    srcs = [
+        ":birdcage_head_mask",
+        ":birdcage_phantom_mask",
+    ],
+)
