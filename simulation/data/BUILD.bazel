@@ -27,10 +27,21 @@ filegroup(
 )
 
 filegroup(
+    name = "parallel_tx_phantom_b1_maps",
+    srcs = glob(["parallel_tx_phantom_b1_map_*.fld"]),
+)
+
+filegroup(
+    name = "parallel_tx_phantom_b1_mask",
+    srcs = ["parallel_tx_phantom_sar.fld"],
+)
+
+filegroup(
     name = "all_data",
     srcs = [
         ":birdcage_head_data",
         ":birdcage_phantom_data",
+        ":parallel_tx_phantom_b1_maps",
     ],
 )
 
@@ -39,5 +50,6 @@ filegroup(
     srcs = [
         ":birdcage_head_mask",
         ":birdcage_phantom_mask",
+        ":parallel_tx_phantom_b1_mask",
     ],
 )
