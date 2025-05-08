@@ -154,8 +154,8 @@ class BField:
         delta_y = (y_max - y_min) / (num_y_values - 1)
 
         b1_magnitude = np.full((num_x_values, num_y_values), np.nan)
-        x_indices = ((self.x() - x_min) / delta_x).astype(np.int64)
-        y_indices = ((self.y() - y_min) / delta_y).astype(np.int64)
+        x_indices = np.round((self.x() - x_min) / delta_x).astype(np.int64)
+        y_indices = np.round((self.y() - y_min) / delta_y).astype(np.int64)
         b1_magnitude[x_indices, y_indices] = self.b1_magnitude()
 
         plt.style.use(["science", "grid"])
