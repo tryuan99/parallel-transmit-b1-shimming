@@ -53,7 +53,7 @@ if __name__ == "__main__":
     flags.DEFINE_string("mask", "simulation/data/parallel_tx_phantom_sar.fld",
                         "SAR field file.")
     flags.DEFINE_string("shims",
-                        "simulation/results/parallel_tx_phantom_shims.csv",
+                        "simulation/data/parallel_tx_phantom_shims.csv",
                         "B1 shim values.")
 
     app.run(main)

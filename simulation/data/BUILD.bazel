@@ -37,12 +37,27 @@ filegroup(
 )
 
 filegroup(
+    name = "parallel_tx_phantom_data",
+    srcs = ["parallel_tx_phantom_7T_shimmed.fld"],
+)
+
+filegroup(
+    name = "parallel_tx_phantom_shims",
+    srcs = ["parallel_tx_phantom_shims.csv"],
+)
+
+filegroup(
     name = "all_data",
     srcs = [
         ":birdcage_head_data",
         ":birdcage_phantom_data",
-        ":parallel_tx_phantom_b1_maps",
+        ":parallel_tx_phantom_data",
     ],
+)
+
+filegroup(
+    name = "all_b1_maps",
+    srcs = [":parallel_tx_phantom_b1_maps"],
 )
 
 filegroup(
@@ -52,4 +67,9 @@ filegroup(
         ":birdcage_phantom_mask",
         ":parallel_tx_phantom_b1_mask",
     ],
+)
+
+filegroup(
+    name = "all_shims",
+    srcs = [":parallel_tx_phantom_shims"],
 )
