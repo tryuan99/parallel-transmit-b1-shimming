@@ -52,10 +52,8 @@ py_binary(
         ":field_file",
         "//optimization:pso_single_objective_optimizer",
         requirement("absl-py"),
-        requirement("matplotlib"),
         requirement("numpy"),
         requirement("pymoo"),
-        requirement("SciencePlots"),
     ],
 )
 

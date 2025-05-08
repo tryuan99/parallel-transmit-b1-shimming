@@ -15,12 +15,10 @@ def main(argv):
     fields = [BField(HFieldFile(field), mask) for field in FLAGS.fields]
 
     df = pd.read_csv(FLAGS.shims, comment="#")
-    print(df.describe())
     coil_index_column, relative_magnitude_column, phase_column = df.columns
     weights = (df[relative_magnitude_column] *
                np.exp(1j * df[phase_column])).to_numpy()
 
-    print(weights)
     b_field = BField.sum(fields, weights)
     logging.info("B1 inhomogeneity: %f", b_field.b1_inhomogeneity())
     b_field.plot_b1_magnitude()

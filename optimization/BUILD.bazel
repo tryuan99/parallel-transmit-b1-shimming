@@ -18,7 +18,6 @@ py_library(
     deps = [
         ":problem",
         ":single_objective_optimizer",
-        requirement("numpy"),
         requirement("pymoo"),
     ],
 )

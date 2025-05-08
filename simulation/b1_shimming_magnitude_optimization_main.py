@@ -2,10 +2,8 @@
 given surface.
 """
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pymoo.operators.sampling.lhs
-import scienceplots
 from absl import app, flags, logging
 
 from optimization.pso_single_objective_optimizer import \
