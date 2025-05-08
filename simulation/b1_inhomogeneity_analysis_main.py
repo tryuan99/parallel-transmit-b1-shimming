@@ -1,6 +1,6 @@
 from absl import app, flags, logging
 
-from simulation.b1_field_data import B1FieldData
+from simulation.b_field import BField
 from simulation.field_file import HFieldFile, SarFieldFile
 
 FLAGS = flags.FLAGS
@@ -11,11 +11,10 @@ def main(argv):
 
     field = HFieldFile(FLAGS.data)
     mask = SarFieldFile(FLAGS.mask)
-    b1_field = B1FieldData(field, mask)
-    logging.info(b1_field.data.head())
-    logging.info("B1 inhomogeneity: %f", b1_field.calculate_inhomogeneity())
-    b1_field.plot_magnitude()
-    b1_field.plot_normalized_magnitude()
+    b_field = BField(field, mask)
+    logging.info("B1 inhomogeneity: %f", b_field.calculate_b1_inhomogeneity())
+    b_field.plot_b1_magnitude()
+    b_field.plot_normalized_b1_magnitude()
 
 
 if __name__ == "__main__":

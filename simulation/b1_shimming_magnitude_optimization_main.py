@@ -7,16 +7,16 @@ from absl import app, flags, logging
 
 from optimization.pso_single_objective_optimizer import \
     PsoSingleObjectiveOptimizer
-from simulation.b1_field_data import B1FieldData
 from simulation.b1_shimming_optimization import \
     B1ShimmingMagnitudeOptimizationProblem
+from simulation.b_field import BField
 from simulation.field_file import HFieldFile, SarFieldFile
 
 FLAGS = flags.FLAGS
 
 
 def optimize_b1_shims(
-    fields: list[HFieldFile],
+    fields: list[BField],
     population_size: int,
     num_generations: int,
     seed: int = None,
@@ -24,7 +24,7 @@ def optimize_b1_shims(
     """Optimizes the B1 shims over the region of interest.
 
     Args:
-        fields: B1 field maps of each TX coil.
+        fields: B field maps of each TX coil.
         population_size: Population size.
         num_generations: Number of generations.
         seed: Random seed.
@@ -46,18 +46,20 @@ def optimize_b1_shims(
     logging.info("Coil index,Relative magnitude,Phase")
     for coil_index in range(problem.num_coils()):
         logging.info(
-            "%d,%f,%f", coil_index + 1,
+            "%d,%f,%f",
+            coil_index + 1,
             optimizer.optimal_value[problem.num_variables_per_coil() *
                                     coil_index],
             optimizer.optimal_value[problem.num_variables_per_coil() *
-                                    coil_index + 1])
+                                    coil_index + 1],
+        )
 
 
 def main(argv):
     assert len(argv) == 1, argv
 
     mask = SarFieldFile(FLAGS.mask)
-    fields = [B1FieldData(HFieldFile(field), mask) for field in FLAGS.fields]
+    fields = [BField(HFieldFile(field), mask) for field in FLAGS.fields]
     optimize_b1_shims(
         fields,
         FLAGS.population_size,

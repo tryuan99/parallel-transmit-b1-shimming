@@ -6,17 +6,17 @@ interest.
 import numpy as np
 
 from optimization.problem import Problem
-from simulation.b1_field_data import B1FieldData
+from simulation.b_field import BField
 
 
 class B1ShimmingMagnitudeOptimizationProblem(Problem):
     """B1 field shimming magnitude optimization problem.
 
     Attributes:
-        fields: B1 field maps of each TX coil.
+        fields: B field maps of each TX coil.
     """
 
-    def __init__(self, fields: list[B1FieldData]) -> None:
+    def __init__(self, fields: list[BField]) -> None:
         self.fields = fields
 
     def num_coils(self) -> int:
@@ -72,15 +72,17 @@ class B1ShimmingMagnitudeOptimizationProblem(Problem):
         relative_magnitudes = x[::self.num_variables_per_coil()]
         phases = x[1::self.num_variables_per_coil()]
 
-        b1_field = np.zeros(len(self.fields[0].data), dtype=np.complex128)
-        for coil_index in range(self.num_coils()):
-            b1_field += (relative_magnitudes[coil_index] *
-                         np.exp(1j * phases[coil_index]) *
-                         self.fields[coil_index].data[
-                             B1FieldData.B1_MAG_COLUMN].to_numpy())
-
-        # Calculate the B1 inhomogeneity as the standard deviation of the B1
-        # field magnitude divided by the mean of the B1 magnitude.
-        b1_magnitude = np.abs(b1_field)
-        b1_inhomogeneity = np.std(b1_magnitude) / np.mean(b1_magnitude)
+        b_field_sum = BField(
+            coordinates=self.fields[0].coordinates,
+            data=np.sum(
+                [
+                    relative_magnitudes[coil_index] *
+                    np.exp(1j * phases[coil_index]) *
+                    self.fields[coil_index].data
+                    for coil_index in range(self.num_coils())
+                ],
+                axis=0,
+            ),
+        )
+        b1_inhomogeneity = b_field_sum.calculate_b1_inhomogeneity()
         return b1_inhomogeneity

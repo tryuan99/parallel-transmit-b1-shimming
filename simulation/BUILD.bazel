@@ -4,8 +4,8 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 package(default_visibility = ["//visibility:public"])
 
 py_library(
-    name = "b1_field_data",
-    srcs = ["b1_field_data.py"],
+    name = "b_field",
+    srcs = ["b_field.py"],
     deps = [
         ":field_file",
         "//utils:constants",
@@ -24,7 +24,7 @@ py_binary(
         "//simulation/data:all_masks",
     ],
     deps = [
-        ":b1_field_data",
+        ":b_field",
         requirement("absl-py"),
     ],
 )
@@ -33,7 +33,7 @@ py_library(
     name = "b1_shimming_optimization",
     srcs = ["b1_shimming_optimization.py"],
     deps = [
-        ":b1_field_data",
+        ":b_field",
         "//optimization:problem",
         requirement("numpy"),
     ],
@@ -47,8 +47,8 @@ py_binary(
         "//simulation/data:all_masks",
     ],
     deps = [
-        ":b1_field_data",
         ":b1_shimming_optimization",
+        ":b_field",
         ":field_file",
         "//optimization:pso_single_objective_optimizer",
         requirement("absl-py"),
