@@ -71,18 +71,8 @@ class B1ShimmingMagnitudeOptimizationProblem(Problem):
         """
         relative_magnitudes = x[::self.num_variables_per_coil()]
         phases = x[1::self.num_variables_per_coil()]
+        weights = relative_magnitudes * np.exp(1j * phases)
 
-        b_field_sum = BField(
-            coordinates=self.fields[0].coordinates,
-            data=np.sum(
-                [
-                    relative_magnitudes[coil_index] *
-                    np.exp(1j * phases[coil_index]) *
-                    self.fields[coil_index].data
-                    for coil_index in range(self.num_coils())
-                ],
-                axis=0,
-            ),
-        )
-        b1_inhomogeneity = b_field_sum.calculate_b1_inhomogeneity()
+        b_field = BField.sum(self.fields, weights)
+        b1_inhomogeneity = b_field.b1_inhomogeneity()
         return b1_inhomogeneity

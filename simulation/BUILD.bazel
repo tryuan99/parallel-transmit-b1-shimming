@@ -52,7 +52,27 @@ py_binary(
         ":field_file",
         "//optimization:pso_single_objective_optimizer",
         requirement("absl-py"),
+        requirement("matplotlib"),
+        requirement("numpy"),
         requirement("pymoo"),
+        requirement("SciencePlots"),
+    ],
+)
+
+py_binary(
+    name = "b1_shimming_viewer_main",
+    srcs = ["b1_shimming_viewer_main.py"],
+    data = [
+        "//simulation/data:all_data",
+        "//simulation/data:all_masks",
+        "//simulation/results:all_shims",
+    ],
+    deps = [
+        ":b_field",
+        ":field_file",
+        requirement("absl-py"),
+        requirement("numpy"),
+        requirement("pandas"),
     ],
 )
 

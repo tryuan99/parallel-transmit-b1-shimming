@@ -12,7 +12,7 @@ def main(argv):
     field = HFieldFile(FLAGS.data)
     mask = SarFieldFile(FLAGS.mask)
     b_field = BField(field, mask)
-    logging.info("B1 inhomogeneity: %f", b_field.calculate_b1_inhomogeneity())
+    logging.info("B1 inhomogeneity: %f", b_field.b1_inhomogeneity())
     b_field.plot_b1_magnitude()
     b_field.plot_normalized_b1_magnitude()
 

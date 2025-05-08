@@ -2,7 +2,10 @@
 given surface.
 """
 
+import matplotlib.pyplot as plt
+import numpy as np
 import pymoo.operators.sampling.lhs
+import scienceplots
 from absl import app, flags, logging
 
 from optimization.pso_single_objective_optimizer import \
@@ -54,6 +57,15 @@ def optimize_b1_shims(
                                     coil_index + 1],
         )
 
+    # Plot the resulting B1 field magnitude.
+    relative_magnitudes = (
+        optimizer.optimal_value[::problem.num_variables_per_coil()])
+    phases = optimizer.optimal_value[1::problem.num_variables_per_coil()]
+    weights = relative_magnitudes * np.exp(1j * phases)
+    b_field = BField.sum(fields, weights)
+    b_field.plot_b1_magnitude()
+    b_field.plot_normalized_b1_magnitude()
+
 
 def main(argv):
     assert len(argv) == 1, argv
@@ -72,12 +84,26 @@ if __name__ == "__main__":
     flags.DEFINE_multi_string(
         "fields",
         [
-            "simulation/data/birdcage_phantom_7T.fld",
-            "simulation/data/birdcage_phantom_7T.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_1.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_2.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_3.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_4.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_5.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_6.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_7.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_8.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_9.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_10.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_11.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_12.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_13.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_14.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_15.fld",
+            "simulation/data/parallel_tx_phantom_b1_map_16.fld",
         ],
         "H field map files for each coil.",
     )
-    flags.DEFINE_string("mask", "simulation/data/birdcage_phantom_sar.fld",
+    flags.DEFINE_string("mask", "simulation/data/parallel_tx_phantom_sar.fld",
                         "SAR field file.")
     flags.DEFINE_integer("population_size",
                          100,

@@ -1,6 +1,7 @@
 """The B field manages and analyzes the simulated B field within a region of
 interest.
 """
+from typing import Self
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -106,6 +107,41 @@ class BField:
         mean_b1_magnitude = np.mean(b1_magnitude)
         return (b1_magnitude - mean_b1_magnitude) / mean_b1_magnitude
 
+    def b1_inhomogeneity(self) -> float:
+        """Calculates the B1 inhomogeneity.
+        
+        The B1 inhomogeneity is defined as the standard deviation of the B1
+        magnitude divided by the mean of the B1 magnitude.
+
+        Returns:
+            The B1 inhomogeneity.
+        """
+        b1_magnitude = self.b1_magnitude()
+        return np.std(b1_magnitude) / np.mean(b1_magnitude)
+
+    @classmethod
+    def sum(cls, fields: list[Self], weights: np.ndarray = None) -> Self:
+        """Returns a B field instance representing the complex weighted sum of
+        the given list of B fields.
+        
+        Args:
+            fields: List of B fields.
+            weights: Weights for each B field.
+        
+        Returns:
+            The complex weighted sum of the B fields.
+        """
+        if weights is None:
+            weights = np.ones(len(fields))
+        coordinates = fields[0].coordinates
+        return cls(
+            coordinates=coordinates,
+            data=np.sum(
+                [weight * field.data for weight, field in zip(weights, fields)],
+                axis=0,
+            ),
+        )
+
     def plot_b1_magnitude(self) -> None:
         """Plots the B1 field magnitude."""
         x_min = np.min(self.x())
@@ -176,15 +212,3 @@ class BField:
         ax.set_ylabel(r"$y$ [m]")
         plt.colorbar(image, label="Normalized B1 field magnitude")
         plt.show()
-
-    def calculate_b1_inhomogeneity(self) -> float:
-        """Calculates the B1 inhomogeneity.
-        
-        The B1 inhomogeneity is defined as the standard deviation of the B1
-        magnitude divided by the mean of the B1 magnitude.
-
-        Returns:
-            The B1 inhomogeneity.
-        """
-        b1_magnitude = self.b1_magnitude()
-        return np.std(b1_magnitude) / np.mean(b1_magnitude)
