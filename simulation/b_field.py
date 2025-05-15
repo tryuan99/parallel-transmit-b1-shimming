@@ -14,7 +14,7 @@ from utils import constants
 
 class BField:
     """B field.
-    
+
     Attributes:
         coordinates: The x, y, and z coordinates.
         data: Complex B field at each coordinate.
@@ -99,7 +99,7 @@ class BField:
 
     def b1_normalized_magnitude(self) -> np.ndarray:
         """Returns the normalized magnitude of the B1 field.
-        
+
         The B1 field magnitude is centered around zero and normaliezd by the
         mean of the B1 field magnitude.
         """
@@ -109,7 +109,7 @@ class BField:
 
     def b1_inhomogeneity(self) -> float:
         """Calculates the B1 inhomogeneity.
-        
+
         The B1 inhomogeneity is defined as the standard deviation of the B1
         magnitude divided by the mean of the B1 magnitude.
 
@@ -123,11 +123,11 @@ class BField:
     def sum(cls, fields: list[Self], weights: np.ndarray = None) -> Self:
         """Returns a B field instance representing the complex weighted sum of
         the given list of B fields.
-        
+
         Args:
             fields: List of B fields.
             weights: Weights for each B field.
-        
+
         Returns:
             The complex weighted sum of the B fields.
         """

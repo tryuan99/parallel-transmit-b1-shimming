@@ -7,7 +7,7 @@ import pandas as pd
 
 class FieldFile(ABC):
     """Field file.
-    
+
     Attributes:
         data: Dataframe.
     """
