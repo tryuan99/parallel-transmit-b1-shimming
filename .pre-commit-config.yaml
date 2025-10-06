@@ -5,11 +5,11 @@ repos:
       - id: yapf
         args: [-i]
   - repo: https://github.com/pycqa/isort
-    rev: 6.0.1
+    rev: 6.1.0
     hooks:
       - id: isort
   - repo: https://github.com/keith/pre-commit-buildifier
-    rev: 8.2.0
+    rev: 8.2.1
     hooks:
       - id: buildifier
       - id: buildifier-lint

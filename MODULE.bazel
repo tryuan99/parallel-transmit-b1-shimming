@@ -2,7 +2,7 @@ module(name = "parallel-transmit-b1-shimming")
 
 bazel_dep(
     name = "rules_python",
-    version = "1.5.1",
+    version = "1.6.3",
 )
 
 # Configure the Python toolchain.
