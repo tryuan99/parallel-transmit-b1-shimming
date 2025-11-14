@@ -6,7 +6,7 @@ FLAGS = flags.FLAGS
 
 
 def main(argv):
-    assert len(argv) == 1
+    assert len(argv) == 1, argv
 
     data = HFieldFile(FLAGS.data)
     logging.info(data.data.head())

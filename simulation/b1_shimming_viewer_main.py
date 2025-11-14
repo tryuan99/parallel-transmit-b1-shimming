@@ -9,7 +9,7 @@ FLAGS = flags.FLAGS
 
 
 def main(argv):
-    assert len(argv) == 1
+    assert len(argv) == 1, argv
 
     mask = SarFieldFile(FLAGS.mask)
     fields = [BField(HFieldFile(field), mask) for field in FLAGS.fields]

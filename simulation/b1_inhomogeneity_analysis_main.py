@@ -7,7 +7,7 @@ FLAGS = flags.FLAGS
 
 
 def main(argv):
-    assert len(argv) == 1
+    assert len(argv) == 1, argv
 
     field = HFieldFile(FLAGS.data)
     mask = SarFieldFile(FLAGS.mask)
