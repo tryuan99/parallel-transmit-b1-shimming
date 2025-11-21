@@ -6,8 +6,8 @@ from typing import Self
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import scienceplots
 
+import utils.mpl_config
 from simulation.field_file import FieldFile, HFieldFile, SarFieldFile
 from utils import constants
 
@@ -158,7 +158,6 @@ class BField:
         y_indices = np.round((self.y() - y_min) / delta_y).astype(np.int64)
         b1_magnitude[x_indices, y_indices] = self.b1_magnitude()
 
-        plt.style.use(["science", "grid"])
         fig, ax = plt.subplots(figsize=(12, 6))
         image = ax.imshow(
             b1_magnitude.T,

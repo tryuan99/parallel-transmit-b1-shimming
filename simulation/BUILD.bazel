@@ -9,10 +9,10 @@ py_library(
     deps = [
         ":field_file",
         "//utils:constants",
+        "//utils:mpl_config",
         requirement("matplotlib"),
         requirement("numpy"),
         requirement("pandas"),
-        requirement("SciencePlots"),
     ],
 )
 

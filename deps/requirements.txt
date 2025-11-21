@@ -301,7 +301,6 @@ matplotlib==3.10.0 \
     # via
     #   -r deps/requirements.in
     #   pymoo
-    #   scienceplots
 numpy==2.2.0 \
     --hash=sha256:0557eebc699c1c34cccdd8c3778c9294e8196df27d713706895edc6f57d29608 \
     --hash=sha256:0798b138c291d792f8ea40fe3768610f3c7dd2574389e37c3f26573757c8f7ef \
@@ -534,10 +533,6 @@ pytz==2024.2 \
     --hash=sha256:2aa355083c50a0f93fa581709deac0c9ad65cca8a9e9beac660adcbd493c798a \
     --hash=sha256:31c7c1817eb7fae7ca4b8c7ee50c72f93aa2dd863de768e1ef4245d426aa0725
     # via pandas
-scienceplots==2.1.1 \
-    --hash=sha256:2e64d2e93b4f98702f30145dbb70d238f5dc315e227fec331489631232dfc9e0 \
-    --hash=sha256:d8d197e3410f87ebdad0b9c265eaab596094fb082d97123e835f6bc32800ab54
-    # via -r deps/requirements.in
 scipy==1.15.2 \
     --hash=sha256:01edfac9f0798ad6b46d9c4c9ca0e0ad23dbf0b1eb70e96adb9fa7f525eff0bf \
     --hash=sha256:03205d57a28e18dfd39f0377d5002725bf1f19a46f444108c29bdb246b6c8a11 \
